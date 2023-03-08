@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #in {
+        height: 100px;
+        width: 400px;
+        margin: auto 0;
+        border-radius: 20px;
+        margin-left: 35%;
+        font-size: 40px;
+    }
+
+    #bu {
+        background-color: aqua;
+        height: 30px;
+        width: 80px;
+        text-align: center;
+        font-size: larger;
+        color: rgb(143, 201, 219);
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        border-radius: 30px;
+        border: aqua;
+        margin-left: 2%;
+
+    }
+
+    #bu:hover {
+        height: 31px;
+        width: 81px;
+        /* margin-left: 1.5%; */
+        border: 1px, solid, rgb(61, 202, 202);
+        background-color: aquamarine;
+
+    }
+
+    #jilu {
+        height: 800px;
+        width: 60%;
+        border: 2px;
+        border: black;
+    }
+
+    .hang {
+        margin: 20px;
+        margin-left: 35%;
+    }
+
+    ul {
+        margin-top: 20px;
+        list-style: none;
+    }
+</style>
+
+<body>
+    <input id="in" type="text">
+    <button id="bu">输入</button>
+    <ul id="ul0"></ul>
+    </div>
+</body>
+
+<script>
+    //防抖
+    function debounce(fn, delay = 500) {
+        let timer = null;
+        return function () {
+            if (timer) {
+                clearTimeout(timer)
+            }
+            timer = setTimeout(() => {
+                fn.apply(this, arguments)
+                timer = null
+            }, delay)
+        }
+    }
+
+    //节流
+    const throttle = function (fn, interval) {
+        let _self = fn,
+            timer,
+            firstTime = true;
+
+        return function () {
+            let args = arguments;
+            _me = this;
+            if (firstTime) {
+                _self.apply(_me, args);
+                return firstTime = false;
+            }
+            if (timer) {
+                return false;
+            }
+            timer = setTimeout(function () {
+                clearTimeout(timer);
+                timer = null;
+                _self.apply(_me, args);
+            }, interval || 500)
+        }
+    }
+    function mode() {
+        if (i == 0) {
+            return throttle(function () {
+                let li0 = document.createElement('li')
+                li0.className = "hang"
+                ul0.appendChild(li0)
+                li0.innerHTML = inp.value
+                inp.value = ""
+                console.log("1");
+            }, 600)
+        }
+        return debounce(function () {
+            let li0 = document.createElement('li')
+            li0.className = "hang"
+            ul0.appendChild(li0)
+            li0.innerHTML = inp.value
+            inp.value = ""
+
+        }, 500)
+    }
+
+    let button = document.getElementById('bu')
+    let ul0 = document.getElementById('ul0')
+    let inp = document.getElementById('in')
+
+    //节流
+    // button.addEventListener('click',
+    //     throttle(function () {
+    //         let li0 = document.createElement('li')
+    //         li0.className = "hang"
+    //         ul0.appendChild(li0)
+    //         li0.innerHTML = inp.value
+    //         inp.value = ""
+    //         console.log("1");
+    //     }, 600))
+
+    //防抖
+    button.addEventListener('click',
+        debounce(function () {
+            let li0 = document.createElement('li')
+            li0.className = "hang"
+            ul0.appendChild(li0)
+            li0.innerHTML = inp.value
+            inp.value = ""
+
+        }, 500))
+
+
+
+
+
+
+
+</script>
+
+</html>
